@@ -1,0 +1,30 @@
+
+<div class=" card text-white p-4 p-sm-5" style="font-weight: 500; background-color: #2e323a;"> 
+<form class="form" [formGroup]="urlForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" [ngClass]="{ 'has-error': urlForm.get('longUrl').errors && (urlForm.get('longUrl').touched || urlForm.get('longUrl').dirty)}">
+        <label for="longUrl">Enter Long URL here!!</label>
+        <input type="url" class="form-control" formControlName="longUrl" id="longUrl" placeholder="Long URL">
+        <span class="help-block" style="color: red; font-weight:200;" *ngIf="urlForm.get('longUrl').errors && (urlForm.get('longUrl').touched || urlForm.get('longUrl').dirty)">
+            <span *ngIf="urlForm.get('longUrl').errors.required">
+                *Long URL is Required
+            </span> 
+            <span *ngIf="urlForm.get('longUrl').errors.pattern">
+                *Please enter a valid URL
+            </span>
+        </span>	
+    </div>
+    <div class="form-group">
+        <input type="checkbox" (click)="onAuthentication()" class="authenticate-input-check" id="authenticate">
+        <label class="authenticate-input-label" for="authenticate">is authentication required?</label>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control col-4" formControlName="password" *ngIf="allowAuthentication" id="authentication" placeholder="Password">
+        <span class="help-block" style="color: red; font-weight:200;" *ngIf="urlForm.get('password').errors && (urlForm.get('password').touched || urlForm.get('password').dirty)">
+            <span *ngIf="urlForm.get('password').errors.required">
+                *Password is Required
+            </span> 
+        </span>	
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>   
+</form>
+</div>

@@ -1,0 +1,82 @@
+<div class="container py-3">
+    <div class="row">
+        <div class="mx-auto col-sm-6">
+                    <!-- form user info -->
+                    <div class="card">
+
+                        <div *ngIf="emailAlreadyRegistered" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            The email You have entered is already <strong>Registered!!</strong> 
+                            <button type="button" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="card-header">
+                            <h4 class="mb-0">User Profile</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" [formGroup]="editForm" >
+                                <div class="form-group row " [ngClass]="{ 'has-error': editForm.get('fName').errors && (editForm.get('fName').touched || editForm.get('fName').dirty)}">
+                                    <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                                    <div class="col-lg-9">
+                                        <input formControlName="fName" class="form-control" type="text" value="{{fName}}" [readonly]="editProfile">
+                                    </div>
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="editForm.get('fName').errors && (editForm.get('fName').touched || editForm.get('fName').dirty)">
+                                        <span *ngIf="editForm.get('fName').errors.required">
+                                            *First Name is Required
+                                        </span> 
+                                    </span>	
+                                </div>
+                                <div class="form-group row" [ngClass]="{ 'has-error': editForm.get('lName').errors && (editForm.get('lName').touched || editForm.get('lName').dirty)}">
+                                    <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                                    <div class="col-lg-9">
+                                        <input formControlName="lName" class="form-control" type="text" value="{{lName}}" [readonly]="editProfile">
+                                    </div>
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="editForm.get('lName').errors && (editForm.get('lName').touched || editForm.get('lName').dirty)">
+                                        <span *ngIf="editForm.get('lName').errors.required">
+                                            *Last Name is Required
+                                        </span> 
+                                    </span>	
+                                </div>
+                                <div class="form-group row" [ngClass]="{ 'has-error': editForm.get('email').errors && (editForm.get('email').touched || editForm.get('email').dirty)}">
+                                    <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                                    <div class="col-lg-9">
+                                        <input formControlName="email" class="form-control" type="email" value="{{email}}" [readonly]="editProfile">
+                                    </div>
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="editForm.get('email').errors && (editForm.get('email').touched || editForm.get('email').dirty)">
+                                        <span *ngIf="editForm.get('email').errors.required">
+                                            *Email is Required
+                                        </span> 
+                                        <span *ngIf="editForm.get('email').errors.email">
+                                            *please enter a valid email address
+                                        </span>
+                                    </span>		
+                                </div>
+                                <div class="form-group row" [ngClass]="{ 'has-error': editForm.get('password').errors && (editForm.get('password').touched || editForm.get('password').dirty)}">
+                                    <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                                    <div class="col-lg-9">
+                                        <input formControlName="password" class="form-control" type="password" value="{{password}}" [readonly]="editProfile">
+                                    </div>
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="editForm.get('password').errors && (editForm.get('password').touched || editForm.get('password').dirty)">
+                                        <span *ngIf="editForm.get('password').errors.required">
+                                            *Password is Required
+                                        </span> 
+                                        <span *ngIf="editForm.get('password').errors.pattern">
+                                            *password should contain atleast 6 characters with one upper case letter
+                                        </span>
+                                    </span>	
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                                    <div class="col-lg-9">
+                                        <button type="submit" *ngIf="editProfile" (click)="toggleEdit()" class="btn btn-primary">Edit Profile</button>
+                                        <button type="submit" *ngIf="!editProfile" class="btn btn-success" (ngSubmit)="onSubmit()">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /form user info -->
+        </div>
+    </div>
+</div>

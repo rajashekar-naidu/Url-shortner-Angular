@@ -1,0 +1,14 @@
+<div class="card p-3 m-3  text-white" *ngFor="let url of urls" style="font-weight: 500; background-color:slateblue;">
+    <div class="col">
+        <input type="url" class="form-control mb-2 col-12" name="longUrl" value="{{url.longUrl}}" [readonly]="isReadonly">
+        <div class="row">
+            <input type="url" class="form-control col-10" style="margin: 10px;" name="shortUrl" value="{{url.shortUrl}}" [readonly]="isReadonly">
+            <button type="submit" class="btn btn-primary m-2 sm-col-1">Share</button> 
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button type="submit" (click)="urlDetails()" class="btn btn-success m-2">Details</button> 
+            <button type="submit" (click)="toggleEdit()" class="btn btn-warning m-2">Modify</button> 
+            <button type="submit" (click)="removeUrl(url._id)" class="btn btn-danger m-2">Remove</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="background-image: url('assets/img/bg/1.jpg');">
+  <div class="authentication-inner py-5">
+    <div class="p-4 p-sm-5">  
+
+      <div *ngIf="wrongEmail" class="alert alert-danger alert-dismissible fade show" role="alert">
+        The email address You have entered is <strong>Incorrect!!</strong> 
+        <button type="button" (click)="closeEmailAlert()" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div *ngIf="wrongPassword" class="alert alert-danger alert-dismissible fade show" role="alert">
+        The Password You have entered is <strong>Incorrect!!</strong> 
+        <button type="button" (click)="closePassAlert()" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <h5 class="h5-login text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
+
+      <!-- / Form -->
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="form-group" [ngClass]="{ 'has-error': loginForm.get('email').errors && (loginForm.get('email').touched || loginForm.get('email').dirty)}" >
+          <input type="email" formControlName="email" class="form-control" placeholder="Email">
+          <span class="help-block" style="color: red; font-weight:200;" *ngIf="loginForm.get('email').errors && (loginForm.get('email').touched || loginForm.get('email').dirty)">
+            <span *ngIf="loginForm.get('email').errors.required">
+              *Email is Required
+            </span> 
+            <span *ngIf="loginForm.get('email').errors.email">
+              *please enter a valid email
+            </span>
+          </span>		
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty)}">
+          <input type="password" formControlName="password" class="form-control" placeholder="password">
+          <span class="help-block" style="color: red; font-weight:200;" *ngIf="loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+            <span *ngIf="loginForm.get('password').errors.required">
+              *Password is Required
+            </span> 
+            <span *ngIf="loginForm.get('password').errors.pattern">
+              *password should contain atleast 6 characters with one upper case letter
+            </span>
+          </span>	
+        </div>
+        <div class="d-flex justify-content-between align-items-center m-0">
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+      </form>
+      <!-- / Form -->
+    </div>
+  </div>
+</div>
+  
