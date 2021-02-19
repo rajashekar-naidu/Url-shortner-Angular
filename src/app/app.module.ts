@@ -1,6 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /* Angular Material */
 import { AngularMaterialModule } from './angular-material.module';
@@ -23,6 +23,8 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppService } from './app.service';
 import { LayoutModule } from './layout/layout.module';
+import { ClipboardModule } from 'ngx-clipboard'; 
+
 
 // *******************************************************************************
 // Pages
@@ -37,6 +39,9 @@ import { UserAccountsComponent } from './user-accounts/user-accounts.component';
 import { UrlAccessListComponent } from './url-access-list/url-access-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
+import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 // *******************************************************************************
 //
@@ -56,6 +61,9 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
     UrlAccessListComponent,
     ProfileComponent,
     UserActivityComponent,
+    DashboardComponent,
+    ChangePasswordComponent,
+    
   ],
 
   imports: [
@@ -67,14 +75,16 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
     HttpClientModule,
     AngularMaterialModule,
     FlexLayoutModule,
+    ClipboardModule,
+    
 
     // App
     AppRoutingModule,
     LayoutModule
   ],
 
-  providers: [Title,AppService,AuthService
-    
+  providers: [Title,AppService,AuthService,
+  //  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
 
   bootstrap: [AppComponent],

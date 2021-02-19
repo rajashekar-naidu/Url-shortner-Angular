@@ -11,6 +11,10 @@ import { AuthService } from '../_services/auth.service';
 export class UrlListComponent implements OnInit{
   isReadonly = true;
   urls:any;
+  length;
+  urlRemoved:boolean;
+  urlNotRemoved:boolean;
+  cantFetchUrls:boolean;
 
   constructor(private appService: AppService, private _router:Router, private _auth:AuthService) {
     this.appService.pageTitle = 'URL List';
@@ -20,24 +24,17 @@ export class UrlListComponent implements OnInit{
     this.getAllUrlDetails();
   }
 
-  toggleEdit(){
-    this.isReadonly = !this.isReadonly;
-    // route to url shortner page with copied url data and populate and generate it there
-  }
-
-  urlDetails(){
-    this._router.navigate(['/url-access-list']);
-  }
-
   getAllUrlDetails(){
     this._auth.getAllUrls()
     .subscribe(
       data => {
         this.urls = data.results || [];
+        this.length = this.urls.length;
         console.log(this.urls);
       },
       error => {
         console.log(error);
+        this.cantFetchUrls = true;
       });
   }
 
@@ -45,13 +42,26 @@ export class UrlListComponent implements OnInit{
     this._auth.removeUrl(urlId)
       .subscribe(
         res => {
-          console.log(res);
           this.ngOnInit();
+          this.urlRemoved=true;
         },
         err => {
           console.log(err);
+          this.urlNotRemoved=true;
         }
       )
+  }
+
+  removeUrlAlert(){
+    this.urlRemoved=false;
+  }
+
+  removeUrlFailAlert(){
+    this.urlNotRemoved=false;
+  }
+
+  cantFetchUrlsAlert(){
+    this.cantFetchUrls=false;
   }
 
 }

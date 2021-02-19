@@ -3,10 +3,10 @@
   <!-- Inner -->
   <div class="sidenav-inner" [ngClass]="{ 'py-1': orientation !== 'horizontal' }">
 
-    <sidenav-router-link icon="ion ion-ios-contact" route="/shorturl" [active]="isActive('/shorturl')">Home</sidenav-router-link>
-    <sidenav-router-link icon="ion ion-md-desktop" route="/url-list" [active]="isActive('/url-list')">Url List</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-ios-contact" route="/dashboard" [active]="isActive('/dashboard')">Dashboard</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-md-desktop" route="/shorturl" [active]="isActive('/shorturl')">ShortUrl</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-md-desktop" route="/shorturl/short-url-list" [active]="isActive('shorturl/short-url-list')">Short Url List</sidenav-router-link>
     <sidenav-router-link icon="ion ion-md-desktop" route="/user-accounts" [active]="isActive('/user-accounts')">User Accounts</sidenav-router-link>
-    <sidenav-router-link icon="ion ion-md-desktop" route="/user-activity" [active]="isActive('/user-activity')">User Activity</sidenav-router-link>
-    
+   <!-- <sidenav-router-link icon="ion ion-md-desktop" route="/user-accounts/user-activity/{{uid}}" active="isActive(/user-accounts/user-activity/{{uid}})" >User Activity</sidenav-router-link>  -->
   </div>
 </sidenav>

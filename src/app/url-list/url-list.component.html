@@ -1,13 +1,45 @@
+<div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4"> 
+    <h4>Short URL List: {{length}}</h4>
+    <button class="btn btn-primary" (click)="addUser()">Add User</button>
+</div>
+
+<div *ngIf="urlRemoved" class="alert alert-success alert-dismissible fade show" role="alert">
+    The Url has been Successfully <strong>Removed!!.</strong>
+    <button type="button" (click)="removeUrlAlert()" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div *ngIf="urlNotRemoved" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed</strong> to remove the URL!!
+    <button type="button" (click)="removeUrlFailAlert()" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div *ngIf="cantFetchUrls" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed</strong> to fectch the URLs!!
+    <button type="button" (click)="cantFetchUrlsAlert()" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <div class="card p-3 m-3  text-white" *ngFor="let url of urls" style="font-weight: 500; background-color:slateblue;">
     <div class="col">
         <input type="url" class="form-control mb-2 col-12" name="longUrl" value="{{url.longUrl}}" [readonly]="isReadonly">
         <div class="row">
-            <input type="url" class="form-control col-10" style="margin: 10px;" name="shortUrl" value="{{url.shortUrl}}" [readonly]="isReadonly">
-            <button type="submit" class="btn btn-primary m-2 sm-col-1">Share</button> 
+            <input type="url" class="form-control col-10" style="margin: 10px;" name="shortUrl" value="{{url.shortUrl}}" [readonly]="isReadonly" #copyUrl>
+            <button type="submit" class="btn btn-primary m-2 sm-col-1" [ngxClipboard]="copyUrl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                </svg>
+                Copy
+            </button> 
         </div>
         <div class="row d-flex justify-content-center">
-            <button type="submit" (click)="urlDetails()" class="btn btn-success m-2">Details</button> 
-            <button type="submit" (click)="toggleEdit()" class="btn btn-warning m-2">Modify</button> 
+            <button type="submit" routerLink="/shorturl/short-url-list/url-access-list/{{url._id}}" class="btn btn-success m-2">Details</button> 
+        <!--    <button type="submit" routerLink="/shorturl" (click)="sendUrlId(url._id)" class="btn btn-warning m-2">Modify</button> -->
             <button type="submit" (click)="removeUrl(url._id)" class="btn btn-danger m-2">Remove</button>
         </div>
     </div>

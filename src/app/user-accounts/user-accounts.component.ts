@@ -10,6 +10,10 @@ import { AuthService } from '../_services/auth.service';
 })
 export class UserAccountsComponent implements OnInit {
   users:any;
+  cantFetchAllUserDetails:boolean;
+  cantRemoveUser:boolean;
+  length;
+
 
   constructor(private _router:Router, private _auth:AuthService) { }
 
@@ -18,7 +22,7 @@ export class UserAccountsComponent implements OnInit {
   }
 
   addUser(){
-    this._router.navigate(['/signup']);
+    this._router.navigate(['user-accounts/add-user']);
   }
 
   getAllUserDetails(){
@@ -26,10 +30,13 @@ export class UserAccountsComponent implements OnInit {
     .subscribe(
       data => {
         this.users = data.results || [];
+        this.length = this.users.length;
         console.log(this.users);
+        console.log(this.users.length);
       },
       error => {
         console.log(error);
+        this.cantFetchAllUserDetails = true;
       });
   }
 
@@ -42,7 +49,16 @@ export class UserAccountsComponent implements OnInit {
         },
         err => {
           console.log(err);
+          this.cantRemoveUser = true;
         }
       )
+  }
+
+  cantFetchAllUserDetailsAlert(){
+    this.cantFetchAllUserDetails=false;
+  }
+
+  cantRemoveUserAlert(){
+    this.cantRemoveUser=false;
   }
 }

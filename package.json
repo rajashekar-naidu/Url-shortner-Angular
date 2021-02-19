@@ -61,7 +61,7 @@
     "ng2-password-strength-bar": "~1.2.0",
     "ng2-smart-table": "~1.5.0",
     "ngx-chips": "~2.1.0",
-    "ngx-clipboard": "~12.2.1",
+    "ngx-clipboard": "^12.3.1",
     "ngx-color-picker": "~8.2.0",
     "ngx-contextmenu": "~5.2.0",
     "ngx-dropzone-wrapper": "~8.0.0",

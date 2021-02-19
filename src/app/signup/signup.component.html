@@ -1,80 +1,99 @@
-<div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="background-image: url('assets/img/bg/1.jpg');">
-    <div class="authentication-inner py-5">
-        <div class="p-4 p-sm-5">
+<div class="container py-3">
+    <div class="row">
+        <div class="mx-auto col-sm-6">
+            <!-- form user info -->
+            <div class="card">
+                <div class="card-body">
 
-            <div *ngIf="emailAlreadyRegistered" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    The email You have entered is already <strong>Registered!!</strong> 
-                <button type="button" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                    <div class="p-4 p-sm-5">
+
+                        <div *ngIf="emptyForm" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            The Form fields are <strong>Empty!!</strong> 
+                             <button type="button" (click)="closeEmptyFormAlert()" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                             </button>
+                        </div>
+
+                        <div *ngIf="serverError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            The Server is not <strong>Responding!!.</strong> Please try again after some time!!
+                             <button type="button" (click)="closeServerAlert()" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                             </button>
+                        </div>                     
+
+                        <div *ngIf="emailAlreadyRegistered" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                The email You have entered is already <strong>Registered!!</strong> 
+                            <button type="button" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <h3 class="h3-login text-center text-muted font-weight-normal mb-4">Create Account</h3>
+                        <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                                <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('fName').errors && (signupForm.get('fName').touched || signupForm.get('fName').dirty)}" >
+                                    <input type="text" formControlName="fName" class="form-control" placeholder="First Name" >
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('fName').errors && (signupForm.get('fName').touched || signupForm.get('fName').dirty)">
+                                        <span *ngIf="signupForm.get('fName').errors.required">
+                                            *First Name is Required
+                                        </span> 
+                                    </span>		
+                                </div>
+
+                                <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('lName').errors && (signupForm.get('lName').touched || signupForm.get('lName').dirty)}" >
+                                    <input type="text" formControlName="lName" class="form-control" placeholder="Last Name">
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('lName').errors && (signupForm.get('lName').touched || signupForm.get('lName').dirty)">
+                                        <span *ngIf="signupForm.get('lName').errors.required">
+                                            *Last Name is Required
+                                        </span> 
+                                    </span>		
+                                </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)}" >
+                                <input type="email" formControlName="email" class="form-control" placeholder="Email Address">
+                                <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)">
+                                    <span *ngIf="signupForm.get('email').errors.required">
+                                        *Email is Required
+                                    </span> 
+                                    <span *ngIf="signupForm.get('email').errors.email">
+                                        *please enter a valid email address
+                                    </span>
+                                </span>		
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('password').errors && (signupForm.get('password').touched || signupForm.get('password').dirty)}">
+                                <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                                <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('password').errors && (signupForm.get('password').touched || signupForm.get('password').dirty)">
+                                    <span *ngIf="signupForm.get('password').errors.required">
+                                        *Password is Required
+                                    </span> 
+                                    <span *ngIf="signupForm.get('password').errors.pattern">
+                                        *password should contain atleast 6 characters with one upper case letter
+                                    </span>
+                                </span>	
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('role').errors && (signupForm.get('role').touched || signupForm.get('role').dirty)}">
+                                <select class="form-control" formControlName="role" id="role">
+                                    <option value="" disabled selected hidden>Select your Role</option>
+                                    <option *ngFor="let role of roles" [ngValue]="role" >{{ role}}</option>
+                                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('role').errors && (signupForm.get('role').touched || signupForm.get('role').dirty)">
+                                        <span *ngIf="signupForm.get('role').errors.required">
+                                            *Role is Required
+                                        </span> 
+                                    </span>		
+                                </select>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center m-0">
+                                <button type="submit" class="btn btn-primary" >Sign Up</button>
+                            </div>
+
+                        </form>
+                        <!-- / Form -->
+
+                    </div>
+                </div>
             </div>
-
-            <h5 class="h5-login text-center text-muted font-weight-normal mb-4">Create Account</h5>
-            <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-
-                    <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('fName').errors && (signupForm.get('fName').touched || signupForm.get('fName').dirty)}" >
-                        <input type="text" formControlName="fName" class="form-control" placeholder="First Name" >
-                        <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('fName').errors && (signupForm.get('fName').touched || signupForm.get('fName').dirty)">
-                            <span *ngIf="signupForm.get('fName').errors.required">
-                                *First Name is Required
-                            </span> 
-                        </span>		
-                    </div>
-
-                    <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('lName').errors && (signupForm.get('lName').touched || signupForm.get('lName').dirty)}" >
-                        <input type="text" formControlName="lName" class="form-control" placeholder="Last Name">
-                        <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('lName').errors && (signupForm.get('lName').touched || signupForm.get('lName').dirty)">
-                            <span *ngIf="signupForm.get('lName').errors.required">
-                                *Last Name is Required
-                            </span> 
-                        </span>		
-                    </div>
-
-                <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)}" >
-                    <input type="email" formControlName="email" class="form-control" placeholder="Email Address">
-                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)">
-                        <span *ngIf="signupForm.get('email').errors.required">
-                            *Email is Required
-                        </span> 
-                        <span *ngIf="signupForm.get('email').errors.email">
-                            *please enter a valid email address
-                        </span>
-                    </span>		
-                </div>
-
-                <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('password').errors && (signupForm.get('password').touched || signupForm.get('password').dirty)}">
-                    <input type="password" formControlName="password" class="form-control" placeholder="Password">
-                    <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('password').errors && (signupForm.get('password').touched || signupForm.get('password').dirty)">
-                        <span *ngIf="signupForm.get('password').errors.required">
-                            *Password is Required
-                        </span> 
-                        <span *ngIf="signupForm.get('password').errors.pattern">
-                            *password should contain atleast 6 characters with one upper case letter
-                        </span>
-                    </span>	
-                </div>
-
-                <div class="form-group" [ngClass]="{ 'has-error': signupForm.get('role').errors && (signupForm.get('role').touched || signupForm.get('role').dirty)}">
-                    <select class="form-control" formControlName="role" id="role">
-                        <option value="" disabled selected hidden>Select your Role</option>
-                        <option *ngFor="let role of roles" [ngValue]="role" >{{ role}}</option>
-                        <span class="help-block" style="color: red; font-weight:200;" *ngIf="signupForm.get('role').errors && (signupForm.get('role').touched || signupForm.get('role').dirty)">
-                            <span *ngIf="signupForm.get('role').errors.required">
-                                *Role is Required
-                            </span> 
-                        </span>		
-                      </select>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center m-0">
-                    <button type="submit" class="btn btn-primary" >Sign Up</button>
-                </div>
-
-            </form>
-            <!-- / Form -->
-
         </div>
     </div>
 </div>
-    
-  

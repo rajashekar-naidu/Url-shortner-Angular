@@ -1,29 +1,41 @@
+
+<div *ngIf="noUrlDetailsFromServer" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed</strong> to fectch the URL Details!!
+    <button type="button" (click)="noUrlDetailsFromServerAlert()" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div *ngIf="noUrlId" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failed</strong> to fectch the URL ID!!
+    <button type="button" (click)="noUrlIdAlert()" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
 <div class="card p-4 m-2">
     <span class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
         <h4>URL Creation Details</h4>
         <button class="btn btn-primary" (click)="return()">Back</button>
     </span>
 
-    <input class="url mb-4" type="url" name="longUrl" placeholder="Long URL" readonly>
-    <input class="url mb-4" type="url" name="shortUrl" placeholder="Short URL" readonly>
+    <input class="url mb-4" type="url" [value]="longUrl" readonly>
+    <input class="url mb-4" type="url" [value]="shortUrl"  readonly>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Created by:</th>
                 <th scope="col">Created on:</th>
-                <th scope="col">Edited by:</th>
-                <th scope="col">Edited on:</th>
                 <th scope="col">Total clicks</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>fname 1</td>
-                <td>date and time 1</td>
-                <td>fname 2</td>
-                <td>date and time 2</td>
-                <td>Count</td>
+                <td><a routerLink="/user-accounts/edit-profile/{{user_id}}">{{user_id}}</a></td>
+                <td>{{createdAt}}</td>
+                <td>{{clicks}}</td>
             </tr>
             </tbody>
         </table>
@@ -32,7 +44,7 @@
     <div class="card p-4 m-2">
     <h4>URL Access Details</h4>
 
-    <h6>URL id here:..........</h6>
+    <h6><strong>URL ID: </strong><a href="/shorturl/short-url-list/url-access-list/{{url_id}}">{{url_id}}</a></h6>
 
 
     <table class="table table-bordered table-hover">
@@ -40,14 +52,14 @@
         <tr>
             <th scope="col">IP Address</th>
             <th scope="col">User Agent</th>
-            <th scope="col">Clicks</th>
+            <th scope="col">Time Stamp</th> <!-- Should be clicks ....not time stamp -->
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let urlTrackerDetail of urlTrackerDetails let i = index;">
         <tr>
-            <td>127:4:45:56</td>
-            <td>browser name</td>
-            <td>count</td>
+            <td>{{urlTrackerDetail.ip_address}}</td>
+            <td>{{urlTrackerDetail.user_agent}}</td>
+            <td>{{urlTrackerDetail.timestamp}}</td>
         </tr>
         </tbody>
     </table>

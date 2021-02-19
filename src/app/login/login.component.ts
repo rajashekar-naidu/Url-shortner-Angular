@@ -11,10 +11,10 @@ import { AuthService } from '../_services/auth.service';
 })
 export class LoginComponent implements OnInit{
   passPattern="^(?=[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]*[A-Z])[A-Za-z0-9]{6,30}$";
-  loginForm:FormGroup;
-  isSubmitted = false;  
-  wrongEmail=false;
-  wrongPassword=false;
+  loginForm:FormGroup; 
+  wrongCredentials=false;
+  emptyForm:boolean;
+  serverError:boolean;
   constructor(private _appService: AppService, private _auth:AuthService, private _router: Router, private _formBuilder:FormBuilder) {
     this._appService.pageTitle = 'Login';
   }
@@ -25,46 +25,54 @@ export class LoginComponent implements OnInit{
     });
   }
 
+
   get formControls() { return this.loginForm.controls; }
   
   onLogin() {
     console.log(this.loginForm.value);
-    this.isSubmitted=true;
     if (this.loginForm.invalid) {
-       return;
+      this.emptyForm=true;
+      this.loginForm.reset({});
+      return;
     }
+    console.log(this.loginForm.value);
     this._auth.loginUser(this.loginForm.value)
     .subscribe(
       res => {
         console.log(res);
        localStorage.setItem('token', res.data.token);
        localStorage.setItem('uId', res.data.userId);
-        this._router.navigate(['/shorturl'])
+        this._router.navigate(['/dashboard'])
       },
       err => {
+        console.log(err.message);
         console.log(err);
         if(err.error.message ==="Email incorrect"){
-          this.wrongEmail=true;
+          this.wrongCredentials=true;
           this.loginForm.reset({});
         }
 
         if(err.error.message ==="Password incorrect"){
-          this.wrongPassword=true;
+          this.wrongCredentials=true;
           this.loginForm.reset({});
         }
-
         
+       if(err.message === "Http failure response for http://192.168.1.41:5000/user/login: 0 Unknown Error")
+         this.serverError=true;
       } 
-    ) 
-  }
-  closeEmailAlert(){
-    this.wrongEmail=false;
-  }
-  closePassAlert(){
-    this.wrongPassword=false;
+    )}
+    
+  closeCredentialsAlert(){
+    this.wrongCredentials=false;
   }
 
-  signup(){
-    this._router.navigate(['/signup'])
+  closeEmptyFormAlert(){
+    this.emptyForm=false;
   }
+
+  closeServerAlert(){
+    this.serverError=false;
+  }
+
+
 }

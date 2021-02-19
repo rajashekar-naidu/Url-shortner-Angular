@@ -1,4 +1,5 @@
 import { Component, Input, HostBinding, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AppService } from '../../app.service';
 import { LayoutService } from '../../layout/layout.service';
@@ -13,17 +14,20 @@ export class LayoutNavbarComponent implements OnInit {
   isRTL: boolean;
  fName:string ;
  lName:string ;
+ uId = this._auth.getuId();
+ serverError:boolean;
+ result:any;
 
   @Input() sidenavToggle = true;
 
   @HostBinding('class.layout-navbar') hostClassMain = true;
 
-  constructor(private appService: AppService, private layoutService: LayoutService, private _auth:AuthService) {
+  constructor(private appService: AppService, private layoutService: LayoutService, private _auth:AuthService, private _router:Router) {
     this.isRTL = appService.isRTL;
   }
 
   ngOnInit(){
-    this.getUserName(this._auth.getuId());
+    this.getUserName(this.uId);
   }
 
   getUserName(uId){
@@ -35,6 +39,8 @@ export class LayoutNavbarComponent implements OnInit {
       },
       error => {
         console.log(error);
+        if(error.name === "HttpErrorResponse")
+        this.serverError=true;
       });
   }
 
@@ -47,6 +53,20 @@ export class LayoutNavbarComponent implements OnInit {
   }
 
   getLoggedOut(){
-    return this._auth.logoutUser();
+    this._auth.logoutUser()
+    .subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });  
+    localStorage.removeItem('token');
+    localStorage.removeItem('uId');
+    this._router.navigate(['/login']);
+  }
+
+  closeServerAlert(){
+    this.serverError=false;
   }
 }

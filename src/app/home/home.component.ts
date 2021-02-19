@@ -10,8 +10,11 @@ import { AuthService } from '../_services/auth.service';
 export class HomeComponent implements OnInit {
   urlPattern='(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   urlForm:FormGroup;
-  allowAuthentication:boolean=false;
-  isSubmitted = false; 
+  allowAuthentication=true;
+  emptyForm:boolean;
+  successful:boolean;
+  duplicateUrl:boolean;
+  // passwordFieldEmpty:boolean;
 
   constructor(private appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService) {
     this.appService.pageTitle = 'URL Shortner';
@@ -28,24 +31,54 @@ export class HomeComponent implements OnInit {
 
   onAuthentication(){
     this.allowAuthentication = !this.allowAuthentication;
+    console.log(this.allowAuthentication);
+    
   }
+
   onSubmit(){
-    this.isSubmitted=true;
     console.log(this.urlForm.value);
+   if((this.allowAuthentication === true && this.urlForm.get('password').value ==="") || (this.allowAuthentication === true && this.urlForm.get('password').value===null)) {
+      this.emptyForm = true;
+   }
     if (this.urlForm.invalid) {
-       return;
+      this.emptyForm=true;
+      this.urlForm.reset({});
+      return;
     }
-    this._auth.sendLongUrl(this.urlForm.value)
-    .subscribe(
-        res => {
-          console.log(res);
+    console.log(this.urlForm.value);  
+      this._auth.sendLongUrl(this.urlForm.value)
+      .subscribe(
+          res => {
+            this.successful=true;
+            console.log(res);
+            this.ngOnInit();
 
-        },
-        err => {
-          console.log(err);
-        }
-
-      )
+          },
+          err => {
+            console.log(err.error);
+            console.log(this.duplicateUrl);
+            
+            if(err.error.message == " longUrl already exists "){
+              this.duplicateUrl=true;
+              this.ngOnInit();
+            }
+      });
     this.urlForm.reset();
   }
+
+  closeEmptyFormAlert(){
+    this.emptyForm=false;
+    this.ngOnInit();
+  }
+
+  closeSuccessAlert(){
+    this.successful=false;
+    this.ngOnInit();
+  }
+
+  closeDuplicateUrlAlert(){
+    this.duplicateUrl=false;
+    this.ngOnInit();
+  }
+
 }

@@ -2,18 +2,31 @@
   <div class="authentication-inner py-5">
     <div class="p-4 p-sm-5">  
 
-      <div *ngIf="wrongEmail" class="alert alert-danger alert-dismissible fade show" role="alert">
-        The email address You have entered is <strong>Incorrect!!</strong> 
-        <button type="button" (click)="closeEmailAlert()" class="close" data-dismiss="alert" aria-label="Close">
+      <div *ngIf="wrongCredentials" class="alert alert-danger alert-dismissible fade show" role="alert">
+        The email or password You have entered is <strong>Incorrect!!</strong> 
+        <button type="button" (click)="closeCredentialsAlert()" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <div *ngIf="wrongPassword" class="alert alert-danger alert-dismissible fade show" role="alert">
-        The Password You have entered is <strong>Incorrect!!</strong> 
-        <button type="button" (click)="closePassAlert()" class="close" data-dismiss="alert" aria-label="Close">
+      <div *ngIf="emptyForm" class="alert alert-danger alert-dismissible fade show" role="alert">
+       The Email or password fields are <strong>Empty!!</strong> 
+        <button type="button" (click)="closeEmptyFormAlert()" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+
+      
+      <div *ngIf="serverError" class="alert alert-danger alert-dismissible fade show" role="alert">
+        The Server is not <strong>Responding!!.</strong> Please try again after some time!!
+         <button type="button" (click)="closeServerAlert()" class="close" data-dismiss="alert" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+ 
+
+      <div>
+        <img src="../../assets/img/shorteurl.png" alt="shorturl" width="240px" height="53px" style="margin: 10px; padding-left: 40px; margin-bottom: 50px;">
       </div>
 
       <h5 class="h5-login text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
@@ -43,7 +56,7 @@
           </span>	
         </div>
         <div class="d-flex justify-content-between align-items-center m-0">
-          <button type="submit" class="btn btn-primary">Sign In</button>
+          <button type="submit" [disabled]="emptyForm" class="btn btn-primary">Sign In</button>
         </div>
       </form>
       <!-- / Form -->

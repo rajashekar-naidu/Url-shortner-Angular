@@ -1,9 +1,24 @@
 <div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4"> 
-    <h4>Users</h4>
+    <h4>User Accounts: {{length}}</h4>
     <button class="btn btn-primary" (click)="addUser()">Add User</button>
 </div>
-    <div class="row row-cols-1 row-cols-md-3">
-        <div class="card border-dark m-3" style="width: 18rem;" *ngFor="let user of users; let i = index" [class.active]="i == currentIndex">
+
+<div *ngIf="cantFetchAllUserDetails" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Failed</strong> to fectch all User Accounts!!
+  <button type="button" (click)="cantFetchAllUserDetailsAlert()" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div *ngIf="cantRemoveUser" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Failed</strong> to Remove User Account!!
+  <button type="button" (click)="cantRemoveUserAlert()" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+    <div class="card p-2 row row-cols-1 row-cols-md-3">
+ <!--       <div class="card border-dark m-3" style="width: 18rem;" *ngFor="let user of users let i = index;">
             <div class="image p-4 card-header border-dark" style="display: block; margin: auto;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -11,21 +26,46 @@
                 </svg>
             </div>
             <div class="card-body text-primary d-flex justify-content-between align-items-start">
-                <h5><span class="card-title"></span>{{user.fName}} {{user.lName}}</h5> <!--add: {{}}-->
-                <div class="btn-group" ngbDropdown [placement]="!isRTL ? 'bottom-right' : 'bottom-left'">
-                    <button type="button" class="btn btn-default btn-sm icon-btn borderless rounded-pill md-btn-flat hide-arrow" ngbDropdownToggle><i class="ion ion-ios-more"></i></button>
-                    <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
-                        <a class="dropdown-item" href="/user-activity">Activity</a>
-                        <a class="dropdown-item" href="/profile">Edit</a>
-                        <a class="dropdown-item" (click)="removeUser(user._id)">Remove</a>
-                    </div>
-                </div>
+                <h5><span class="card-title"></span>{{user.fName}} {{user.lName}}</h5> 
             </div>
             <div class="card-body text-info">
-                <p class="card-text">First Name: {{user.fName}}</p>   <!--add: {{}}-->  
-                <p class="card-text">Last Name: {{user.lName}}</p>   <!--add: {{}}-->
-                <p class="card-text">Email Address: {{user.email}}</p> <!--add: {{}}-->
-                <p class="card-text">Role: {{user.role}}</p> <!--add: {{}}-->
-            </div>
-        </div>
+                <p class="card-text">First Name: {{user.fName}}</p>    
+                <p class="card-text">Last Name: {{user.lName}}</p>  
+                <p class="card-text">Email Address: {{user.email}}</p> 
+                <p class="card-text">Role: {{user.role}}</p> 
+            </div> -->
+
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="p-2" *ngFor="let user of users let i = index;">
+                  <tr>
+                    <th scope="row"><a routerLink="/user-accounts/edit-profile/{{user._id}}">{{user._id}}</a></th>
+                    <td>{{user.fName}}</td>
+                    <td>{{user.lName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                        <div class="btn-group" ngbDropdown [placement]="!isRTL ? 'bottom-right' : 'bottom-left'">
+                            <button type="button" class="btn btn-default btn-sm icon-btn borderless rounded-pill md-btn-flat hide-arrow" ngbDropdownToggle><i class="ion ion-ios-more"></i></button>
+                            <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
+                                <a class="dropdown-item" routerLink="user-activity/{{user._id}}">Activity</a>  
+                                <a class="dropdown-item"  routerLink="edit-profile/{{user._id}}" >Edit</a>  
+                                <a class="dropdown-item" (click)="removeUser(user._id)">Remove</a>
+                            </div>
+                        </div>
+                    </td>
+                  </tr> 
+                </tbody>
+              </table>
+
+       <!-- </div> -->
     </div>

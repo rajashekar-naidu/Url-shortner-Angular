@@ -7,12 +7,13 @@ import { AuthService } from '../_services/auth.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['../../vendor/styles/pages/authentication.scss']
+ // styleUrls: ['../../vendor/styles/pages/authentication.scss']
 })
 export class SignupComponent implements OnInit {
   passPattern="^(?=[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]*[A-Z])[A-Za-z0-9]{6,30}$";
   signupForm:FormGroup;
-  isSubmitted = false; 
+  emptyForm:boolean;
+  serverError:boolean;
   emailAlreadyRegistered=false; 
 
   constructor(private _appService: AppService, private _auth:AuthService, private _router: Router, private _formBuilder:FormBuilder) {
@@ -31,14 +32,11 @@ export class SignupComponent implements OnInit {
 
   get formControls() { return this.signupForm.controls; }
 
-  closeAlert(){
-    this.emailAlreadyRegistered=false;
-  }
-
   onSubmit() {    
-    this.isSubmitted=true;
     if (this.signupForm.invalid) {
-       return;
+      this.emptyForm=true;
+      this.ngOnInit();
+      return;
     }
     console.log(this.signupForm.value);
     this._auth.registerUser(this.signupForm.value)
@@ -52,13 +50,26 @@ export class SignupComponent implements OnInit {
           if(err.error.errors.email === "that email is already registered")
             this.emailAlreadyRegistered=true;
 
-        }
+          if(err.name === "HttpErrorResponse")
+            this.serverError=true;
 
-      )
+        })
     this.signupForm.reset();
  }
  login(){
   this._router.navigate(['/login'])
+}
+
+closeEmptyFormAlert(){
+  this.emptyForm=false;
+}
+
+closeAlert(){
+  this.emailAlreadyRegistered=false;
+}
+
+closeServerAlert(){
+  this.serverError=false;
 }
 
 }

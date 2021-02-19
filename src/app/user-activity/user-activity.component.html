@@ -3,42 +3,48 @@
         <div class="mx-auto col-12">
             <div class="card">
                 <div class="card-header">
+
+                    <div *ngIf="failedToGetDetails" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Failed to get  <strong>User Details!!,</strong> Please try again after some time!!
+                         <button type="button" (click)="failedToGetDetailsAlert()" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>      
+
                     <h4 class="mb-0">User Activity</h4>
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
-                        <h5>User Name:{{fName}} {{lName}}</h5>
-                        <h5>User ID:{{uId}}</h5>
+                        <h5><strong> User Name: </strong><span style="color: blue;"> {{fName}} {{lName}}</span></h5>
+                        <h5><strong>User ID: </strong><span style="color: blue;">{{uId}}</span> </h5>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 m-2">
-                        <table class="table table-bordered table-hover">
+                    <div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-2 m-0">
+                        <table class="table table-bordered table-hover m-1">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Login Time:</th>
                                     <th scope="col">Logout Time:</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>date and time stamp</td>
-                                    <td>date and time stamp</td>
+                            <tbody >
+                                <tr *ngFor="let urlById of urlsById">
+                                    <td>{{urlById._id}}</td> <!--false values change it-->
+                                    <td>{{urlById.createdAt}}</td> <!--false values change it-->
                                 </tr>
                             </tbody>
                         </table>
 
-                        <table class="table table-bordered table-hover" >
+                        <table class="table table-bordered table-hover m-1" >
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">URL ID:</th>
                                     <th scope="col">Creation Time:</th>
-                                    <th scope="col">Modified Time:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let urlById of urlsById">
                                     <td>{{urlById._id}}</td>
-                                    <td>{{urlById.timestamp}}</td>
-                                    <td>date and time stamp</td>
+                                    <td>{{urlById.createdAt}}</td>
                                 </tr>
                             </tbody>
                         </table>

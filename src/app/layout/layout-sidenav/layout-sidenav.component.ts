@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 import { AppService } from '../../app.service';
 import { LayoutService } from '../layout.service';
 
@@ -15,12 +16,13 @@ export class LayoutSidenavComponent implements AfterViewInit {
   @HostBinding('class.layout-sidenav-horizontal') hostClassHorizontal = false;
   @HostBinding('class.flex-grow-0') hostClassFlex = false;
 
-  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService) {
+  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private _auth:AuthService) {
     // Set host classes
     this.hostClassVertical = this.orientation !== 'horizontal';
     this.hostClassHorizontal = !this.hostClassVertical;
     this.hostClassFlex = this.hostClassHorizontal;
   }
+  uid = this._auth.getuId();
 
   ngAfterViewInit() {
     // Safari bugfix

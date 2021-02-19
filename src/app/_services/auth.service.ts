@@ -6,25 +6,30 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
+  //private baseUrl="http://localhost:5000";
   private baseUrl="http://192.168.1.41:5000";
   //user apis
   private _registerUrl = this.baseUrl+"/user/register";//post
   private _loginUrl = this.baseUrl+"/user/login";//post
   private _allUsers = this.baseUrl+"/user/all-user/list";//get
-  private _userDetailsByID = this.baseUrl+"/user/user-by-id";//get
-  private _updateUserByID = this.baseUrl+"/user/user-update/";//put 
+  private _userDetailsByID = this.baseUrl+"/user/user-by-id";//get  /:userId
+  private _updateUserByID = this.baseUrl+"/user/user-update";//put  // /:userId
   private _removeUserByID = this.baseUrl+"/user/user-remove";//delete
+  //private _getAllLogs = this.baseUrl+/user/get-all-log;//get
+  //private _getLogsByID = this.baseUrl+/user/get-log/:userID;//get
+  private _logoutByID = this.baseUrl+"/user/logout"; //get
+  //private _changePassword = this.baseUrl+/user/update-password; //
+  //private _changePassword = this.baseUrl+/user/dashboard; //
+
+  
   
   //url apis
   private _sendLongUrl = this.baseUrl+"/shortUrl/url";//post
   private _allUrls = this.baseUrl+"/shortUrl/all-url";//get
-  private _urlByID = this.baseUrl+"/shorturl/modify/code";//put
+  private _urlByID = this.baseUrl+"/shortUrl/modify";//put ///not needed
   private _removeUrl = this.baseUrl+"/shortUrl/remove-url";//delete
-  private _urldetails = this.baseUrl+"/shortUrl/get-url/:code";//get ....what code?
+  private _urldetails = this.baseUrl+"/shortUrl/get-url";//get ....what code?
   private _redirectToUrl = this.baseUrl+"/shortUrl/redirect-url/:code";//get ....what code?
-
-
-
 
 
   constructor(private http: HttpClient, private _router: Router) { }
@@ -46,6 +51,7 @@ export class AuthService {
   }
 
   getUserDetails(uId){
+    console.log(uId);
     return this.http.get<any>(`${this._userDetailsByID}/${uId}`,{
       headers:new HttpHeaders({
         'Content-type':'application/json',
@@ -53,9 +59,16 @@ export class AuthService {
       })      
     });
   }
-
-  updateUser(uId) {
-    return this.http.put<any>(this._updateUserByID, uId)
+  
+  updateUser(uId,user) { //check if its working properly
+    console.log(uId);
+    console.log(user);
+    return this.http.put<any>(`${this._updateUserByID}/${uId}`, user, {
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'authorization':localStorage.getItem('token')
+      })
+    });
   }
 
 
@@ -69,26 +82,39 @@ export class AuthService {
     });
   }
 
-  getToken() {
+  logoutUser(){  
+    return this.http.get<any>(this._logoutByID, {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      })
+    });
+  }
+
+  getToken() { //check if this is needed
     return localStorage.getItem('token')
   }
 
-  loggedIn() {
+
+  loggedIn() { //check if this is being used
     return !!localStorage.getItem('token')    
   }
   
-  getuId(){
+  getuId(){ //check if this is needed
     return localStorage.getItem('uId');
   }
 
-  logoutUser() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('uId');
-    this._router.navigate(['/login']);
+  storeUserId(){
+
   }
 
+  storeUrlId(){
+    return sessionStorage.getItem('urlID');
+  }
 
   sendLongUrl(longUrl){ 
+    console.log(longUrl);
+    
     return this.http.post<any>(this._sendLongUrl,longUrl, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
@@ -107,7 +133,25 @@ export class AuthService {
     });
   }
 
+  modifyUrlDetails(urlId,longUrl){ //not needed
+    console.log(urlId);
+    console.log(longUrl);
+    return this.http.put<any>(`${this._urlByID}/${urlId}`, longUrl, {
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'authorization':localStorage.getItem('token')
+      })
+    });
+  }
 
+  getUrlDetails(urlId){
+    return this.http.get<any>(`${this._urldetails}/${urlId}`, {
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'authorization':localStorage.getItem('token')
+      })
+    });
+  }
 
   removeUrl(urlId){
     console.log(`${this._removeUrl}/${urlId}`);

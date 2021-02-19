@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg align-items-lg-center container-p-x" [ngClass]="currentBg()">
 
-  <!-- Brand -->
-  <a routerLink="/" class="navbar-brand">URL Shortner</a>
+
 
   <!-- Sidenav toggle -->
   <div class="navbar-nav align-items-lg-center mr-auto mr-lg-4" *ngIf="sidenavToggle">
@@ -9,6 +8,9 @@
       <i class="ion ion-md-menu text-large align-middle"></i>
     </a>
   </div>
+
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/dashboard" style="font-weight: 500;">URL Shortner</a>
 
   <!-- Navbar toggle -->
   <button class="navbar-toggler" type="button" (click)="isExpanded = !isExpanded">
@@ -30,8 +32,8 @@
           </span>
         </a>
         <div ngbDropdownMenu [class.dropdown-menu-right]="isRTL" style="font-weight: 400;">
-          <a class="dropdown-item" href="/profile">Profile</a>
-          <a class="dropdown-item" href="/user-activity">User Activity</a>
+          <a class="dropdown-item" routerLink="/user-accounts/edit-profile/{{uId}}"> Edit Profile</a>
+          <a class="dropdown-item" routerLink="/user-accounts/user-activity/{{uId}}">User Activity</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/logout" routerLink="login" (click)="getLoggedOut()">LogOut</a>
         </div>
@@ -39,6 +41,15 @@
     </div>
   </div>
 </nav>
+
+
+<div *ngIf="serverError" class="alert alert-danger alert-dismissible fade show" role="alert">
+  The Server is not <strong>Responding!!.</strong> Please try again after some time!!
+   <button type="button" (click)="closeServerAlert()" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+
 
 
 

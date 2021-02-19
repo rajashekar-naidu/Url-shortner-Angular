@@ -20,6 +20,8 @@ import { UserAccountsComponent } from './user-accounts/user-accounts.component';
 import { UrlAccessListComponent } from './url-access-list/url-access-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 // *******************************************************************************
@@ -27,35 +29,42 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
-  {path:'signup', component:SignupComponent},
-  //{path:'home', component:HomeComponent},
   {path:'confirm-page', component:ConfirmPageComponent},
-  //{path:'urls', component:UrlListComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   
+  { path: 'dashboard', component: Layout2Component, children: [
+    { path: '', component: DashboardComponent },
+  ]},
 
   { path: 'shorturl', component: Layout2Component, children: [
     { path: '', component: HomeComponent },
   ]},
 
-  { path: 'url-list', component: Layout2Component, children: [
+  { path: 'shorturl/short-url-list', component: Layout2Component, children: [
     { path: '', component: UrlListComponent },
   ]},
 
   { path: 'user-accounts', component: Layout2Component, children: [
     { path: '', component: UserAccountsComponent },
   ]},
+  { path: 'user-accounts/add-user', component: Layout2Component, children: [
+    { path: '', component: SignupComponent },
+  ]},
 
-  { path: 'url-access-list', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'shorturl/short-url-list/url-access-list/:urlId', component: LayoutWithoutSidenavComponent, children: [
     { path: '', component: UrlAccessListComponent },
   ]},
 
-  { path: 'profile', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'user-accounts/edit-profile/:id', component: LayoutWithoutSidenavComponent, children: [
     { path: '', component: ProfileComponent },
   ]},
 
-  { path: 'user-activity', component: Layout2Component, children: [
+  { path: 'user-accounts/user-activity/:id', component: LayoutWithoutSidenavComponent, children: [
     { path: '', component: UserActivityComponent },
+  ]},
+
+  { path: 'user-accounts/edit-profile/change-password/:id', component: LayoutWithoutSidenavComponent, children: [
+    { path: '', component: ChangePasswordComponent },
   ]},
 
 
