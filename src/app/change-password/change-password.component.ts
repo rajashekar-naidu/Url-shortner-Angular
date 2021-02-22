@@ -15,6 +15,10 @@ export class ChangePasswordComponent implements OnInit {
   passPattern="^(?=[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]*[A-Z])[A-Za-z0-9]{6,30}$";
   passwordForm:FormGroup;
   emptyForm:boolean;
+  samePassword:boolean;
+  matchError:boolean;
+  serverError:boolean;
+  sucessfulChange:boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private _appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService) { 
     this._appService.pageTitle = 'Change Password';
@@ -24,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
     this.uId = this.activatedRoute.snapshot.paramMap.get('id'); //or params['id'] insted of paramMap.get('id')
     console.log(this.uId);
     this.passwordForm = this._formBuilder.group({
-      oldPassword : ['', [Validators.required, Validators.pattern(this.passPattern)]],
+      Password : ['', [Validators.required, Validators.pattern(this.passPattern)]],
       newPassword : ['', [Validators.required, Validators.pattern(this.passPattern)]],
       confirmPassword : ['', [Validators.required]],
     }, {validator: ConfirmedValidator('newPassword', 'confirmPassword')});
@@ -40,17 +44,45 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
     console.log(this.passwordForm.value);
-    this._auth.registerUser(this.passwordForm.value)
+    this._auth.changePassword(this.passwordForm.value)
     .subscribe(
         res => {
-          console.log(res);
+          console.log(res.message);
+          if(res.message === "Sucessfully Changed the password")
+            this.sucessfulChange=true;
         },
         err => {
           console.log(err);
-        //  if(err.error.errors.email === "that email is already registered")
-        //    this.emailAlreadyRegistered=true;
+          if(err.error.message === "Please enter another password your new password matched with old one")
+            this.samePassword=true;
+
+          if(err.error.message === "Password do not matched")
+            this.matchError=true;
+
+        //  if(err.name === "HttpErrorResponse"){
+        //  this.serverError=true;
+       // }
         })
     this.passwordForm.reset();
   }
 
+  sucessfulChangeAlert(){
+    this.sucessfulChange=false;
+  }
+
+  samePasswordAlert(){
+    this.samePassword=false;
+  }
+
+  matchErrorAlert(){
+    this.matchError=false;
+  }
+
+  closeEmptyFormAlert(){
+    this.emptyForm=false;
+  }
+
+  closeServerAlert(){
+    this.serverError=false;
+  }
 }

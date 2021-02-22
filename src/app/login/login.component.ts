@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit{
   get formControls() { return this.loginForm.controls; }
   
   onLogin() {
-    console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       this.emptyForm=true;
       this.loginForm.reset({});
