@@ -52,14 +52,14 @@
         <tr>
             <th scope="col">IP Address</th>
             <th scope="col">User Agent</th>
-            <th scope="col">Time Stamp</th> <!-- Should be clicks ....not time stamp -->
+            <th scope="col">Clicks</th> <!-- Should be clicks ....not time stamp -->
         </tr>
         </thead>
         <tbody *ngFor="let urlTrackerDetail of urlTrackerDetails let i = index;">
         <tr>
             <td>{{urlTrackerDetail.ip_address}}</td>
             <td>{{urlTrackerDetail.user_agent}}</td>
-            <td>{{urlTrackerDetail.timestamp}}</td>
+            <td></td> <!--{{urlTrackerDetail.timestamp}}-->
         </tr>
         </tbody>
     </table>

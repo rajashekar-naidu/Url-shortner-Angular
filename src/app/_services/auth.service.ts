@@ -16,7 +16,7 @@ export class AuthService {
   private _updateUserByID = this.baseUrl+"/user/user-update";//put  // /:userId
   private _removeUserByID = this.baseUrl+"/user/user-remove";//delete
   //private _getAllLogs = this.baseUrl+/user/get-all-log;//get
-  //private _getLogsByID = this.baseUrl+/user/get-log/:userID;//get
+  private _getLogsByID = this.baseUrl+"/user/get-log";//get
   private _logoutByID = this.baseUrl+"/user/logout"; //get
   //private _changePassword = this.baseUrl+/user/update-password; //
   //private _changePassword = this.baseUrl+/user/dashboard; //
@@ -91,6 +91,15 @@ export class AuthService {
     });
   }
 
+  userLogsByID(uId){
+    return this.http.get<any>(`${this._getLogsByID}/${uId}`,{
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      })
+    });
+  }
+
   getToken() { //check if this is needed
     return localStorage.getItem('token')
   }
@@ -145,6 +154,8 @@ export class AuthService {
   }
 
   getUrlDetails(urlId){
+    console.log(urlId);
+    
     return this.http.get<any>(`${this._urldetails}/${urlId}`, {
       headers:new HttpHeaders({
         'Content-type':'application/json',

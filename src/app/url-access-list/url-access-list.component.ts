@@ -41,14 +41,14 @@ export class UrlAccessListComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
-        this.urlDetails = data.url || [];
+        this.urlDetails = data || [];
         this.longUrl =this.urlDetails.longUrl;
         this.shortUrl =this.urlDetails.shortUrl;
         this.user_id = this.urlDetails.user_id;
         this.createdAt = this.urlDetails.createdAt;
         this.clicks = this.urlDetails.clicks;
         this.url_id = this.urlDetails._id;
-        this.urlTrackerDetails = data.url.url_tracker || [];
+        this.urlTrackerDetails = data.url_tracker || [];
       },
       error => {
         console.log(error);

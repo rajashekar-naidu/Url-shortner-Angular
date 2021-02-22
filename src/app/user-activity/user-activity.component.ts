@@ -13,6 +13,7 @@ export class UserActivityComponent implements OnInit {
   uId:string;
   urls:any;
   urlsById:any;
+  logDetailsById:any;
   failedToGetDetails:boolean;
  
   constructor(private _auth:AuthService, private activatedRoute:ActivatedRoute) { }
@@ -22,6 +23,7 @@ export class UserActivityComponent implements OnInit {
     console.log(this.uId);
     this.getUserDetailsBasedOnId(this.uId);
     this.getAllUrlDetails();
+    this.getLogDetailsByID(this.uId);
   }
   
   getUserDetailsBasedOnId(uId){
@@ -37,20 +39,34 @@ export class UserActivityComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.failedToGetDetails = true;
       });
+  }
+
+  getLogDetailsByID(uId){
+    if(uId === null)
+    uId = this._auth.getuId();
+    console.log(uId);
+
+    this._auth.userLogsByID(uId)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.logDetailsById = data || [];
+      },
+      error => {
+        console.log(error);
+        this.failedToGetDetails = true;
+    });
   }
 
   getAllUrlDetails(){
     this._auth.getAllUrls()
     .subscribe(
       data => {
-        console.log(data.results);
-        console.log(data.results.clicks);
-        
+        console.log(data.results);        
         this.urls = data.results || [];
-        console.log(this.urls.clicks);
         this.urlsById = data.results.filter(e => e.user_id === this.uId);
-        console.log(this.urlsById);
       },
       error => {
         console.log(error);

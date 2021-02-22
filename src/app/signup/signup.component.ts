@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
   emailAlreadyRegistered=false; 
 
   constructor(private _appService: AppService, private _auth:AuthService, private _router: Router, private _formBuilder:FormBuilder) {
-    this._appService.pageTitle = 'Sign Up';
+    this._appService.pageTitle = 'Add User';
    }
    roles: any = ['Admin', 'User'];
   ngOnInit() {
