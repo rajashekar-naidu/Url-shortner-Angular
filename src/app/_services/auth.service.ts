@@ -147,25 +147,23 @@ export class AuthService {
     return false;
   }
 
-  sendLongUrl(longUrl){ 
-    console.log(longUrl);
-    
-    return this.http.post<any>(this._sendLongUrl,longUrl, {
+  sendLongUrl(longUrl){    
+    return this.http.post<any>(this._sendLongUrl,longUrl) /*, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
         'authorization': localStorage.getItem('token')
       })
-    });
+    });*/
   }
 
 
   getAllUrls(){
-    return this.http.get<any>(this._allUrls, {
+    return this.http.get<any>(this._allUrls) /*, {
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })
-    });
+    });*/
   }
 
   // modifyUrlDetails(urlId,longUrl){ //not needed
@@ -182,22 +180,21 @@ export class AuthService {
   getUrlDetails(urlId){
     console.log(urlId);
     
-    return this.http.get<any>(`${this._urldetails}/${urlId}`, {
+    return this.http.get<any>(`${this._urldetails}/${urlId}`) /*, {
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })
-    });
+    }); */
   }
 
   removeUrl(urlId){
-    console.log(`${this._removeUrl}/${urlId}`);
-    return this.http.delete(`${this._removeUrl}/${urlId}`,{
+    return this.http.delete(`${this._removeUrl}/${urlId}`) /*,{
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })      
-    });
+    });*/
   }
 
 }
