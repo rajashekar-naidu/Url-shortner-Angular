@@ -53,81 +53,77 @@ export class AuthService {
   }
 
   getDashboard(){
-    return this.http.get<any>(this._dashboard, {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        'authorization': localStorage.getItem('token')
-      })
-    });
+     return this.http.get<any>(this._dashboard)//, {
+    //   headers: new HttpHeaders({
+    //     'Content-type': 'application/json',
+    //     'authorization': localStorage.getItem('token')
+    //   })
+    // });
   }
 
   getAllUsers() {
-    return this.http.get<any>(this._allUsers, {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        'authorization': localStorage.getItem('token')
-      })
-    });
+     return this.http.get<any>(this._allUsers)//, {
+    //   headers: new HttpHeaders({
+    //     'Content-type': 'application/json',
+    //     'authorization': localStorage.getItem('token')
+    //   })
+    // });
   }
 
   getUserDetails(uId){
     console.log(uId);
-    return this.http.get<any>(`${this._userDetailsByID}/${uId}`,{
+    return this.http.get<any>(`${this._userDetailsByID}/${uId}`)/*,{
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })      
-    });
+    });*/
   }
   
   updateUser(uId,user) { //check if its working properly
-    console.log(uId);
-    console.log(user);
-    return this.http.put<any>(`${this._updateUserByID}/${uId}`, user, {
+    return this.http.put<any>(`${this._updateUserByID}/${uId}`, user) /*, {
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })
-    });
+    });*/
   }
 
 
   removeUser(uId){
-    console.log(`${this._removeUserByID}/${uId}`);
-    return this.http.delete(`${this._removeUserByID}/${uId}`,{
+    return this.http.delete(`${this._removeUserByID}/${uId}`)/*,{
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'authorization':localStorage.getItem('token')
       })      
-    });
+    });*/
   }
 
   changePassword(password) {
-    console.log(password);
-    return this.http.post<any>(this._changePassword, password, {
+    return this.http.post<any>(this._changePassword, password) /*, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
         'authorization': localStorage.getItem('token')
       })
-    });
+    });*/
   }
 
   logoutUser(){  
-    return this.http.get<any>(this._logoutByID, {
+    return this.http.get<any>(this._logoutByID) /*, {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
         'authorization': localStorage.getItem('token')
       })
-    });
+    }); */
   }
 
   userLogsByID(uId){
-    return this.http.get<any>(`${this._getLogsByID}/${uId}`,{
+    return this.http.get<any>(`${this._getLogsByID}/${uId}`) /*,{
       headers: new HttpHeaders({
         'Content-type': 'application/json',
         'authorization': localStorage.getItem('token')
       })
-    });
+    });*/
   }
 
   isAuthenticated(){

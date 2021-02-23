@@ -16,7 +16,8 @@ export class UrlAccessListComponent implements OnInit {
   longUrl;
   shortUrl;
   user_id;
-  createdAt;
+  date;
+  time;
   clicks; 
   url_id; 
   noUrlDetailsFromServer:boolean;
@@ -47,7 +48,8 @@ export class UrlAccessListComponent implements OnInit {
         this.longUrl =this.urlDetails.longUrl;
         this.shortUrl =this.urlDetails.shortUrl;
         this.user_id = this.urlDetails.user_id;
-        this.createdAt = this.urlDetails.createdAt;
+        this.date = this.urlDetails.date;
+        this.time = this.urlDetails.time;
         this.clicks = this.urlDetails.clicks;
         this.url_id = this.urlDetails._id;
         this.urlTrackerDetails = data.url_tracker || [];

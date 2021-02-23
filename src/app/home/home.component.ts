@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
    // console.log(this.allowAuthentication);
    if((this.allowAuthentication === true && this.urlForm.get('password').value ==="") || (this.allowAuthentication === true && this.urlForm.get('password').value===null)) {
       this.emptyForm = true;
+      console.log(this.allowAuthentication);
       this.ngOnInit();
     // this.urlForm.reset({});
       return;
@@ -50,6 +51,15 @@ export class HomeComponent implements OnInit {
 
    if((this.allowAuthentication === true && this.urlForm.get('longUrl').value ==="") || (this.allowAuthentication === true && this.urlForm.get('longUrl').value===null)) {
     this.emptyForm = true;
+    console.log(this.allowAuthentication);
+    this.ngOnInit();
+  // this.urlForm.reset({});
+    return;
+ }
+
+   if((this.allowAuthentication === false && this.urlForm.get('longUrl').value ==="") || (this.allowAuthentication === false && this.urlForm.get('longUrl').value===null)) {
+    this.emptyForm = true;
+    console.log(this.allowAuthentication);
     this.ngOnInit();
    // this.urlForm.reset({});
     return;
@@ -65,9 +75,7 @@ export class HomeComponent implements OnInit {
 
           },
           err => {
-            console.log(err.error);
-            console.log(this.duplicateUrl);
-            
+            console.log(err.error);            
             if(err.error.message == " longUrl already exists "){
               this.duplicateUrl=true;
               this.ngOnInit();

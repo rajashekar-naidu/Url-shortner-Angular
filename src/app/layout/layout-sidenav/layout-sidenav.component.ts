@@ -16,22 +16,21 @@ export class LayoutSidenavComponent implements AfterViewInit, OnInit{
   @HostBinding('class.layout-sidenav-horizontal') hostClassHorizontal = false;
   @HostBinding('class.flex-grow-0') hostClassFlex = false;
 
-  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private _auth:AuthService) {
+  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private _auth:AuthService, private _router:Router) {
     // Set host classes
     this.hostClassVertical = this.orientation !== 'horizontal';
     this.hostClassHorizontal = !this.hostClassVertical;
     this.hostClassFlex = this.hostClassHorizontal;
   }
-  role;
-
+  role:boolean;
   ngOnInit(){
    this.getRole();
   }
   getRole(){
-    console.log(this._auth.getRole());
-  this.role = this._auth.getRole();
-  console.log(this.role);
-  
+  if(this._auth.getRole()==="Admin")
+    this.role =true;
+  if(this._auth.getRole()==="User")
+  this.role= false;
   }
 
   ngAfterViewInit() {

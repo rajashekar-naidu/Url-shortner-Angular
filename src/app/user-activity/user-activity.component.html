@@ -24,13 +24,15 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Action:</th>
-                                        <th scope="col">Time Stamp:</th>
+                                        <th scope="col">Date:</th>
+                                        <th scope="col">Time:</th>
                                     </tr>
                                 </thead>
                                 <tbody >
                                     <tr *ngFor="let logDetailById of logDetailsById">
                                         <td>{{logDetailById.user_activities[0].Action}}</td> 
-                                        <td>{{logDetailById.user_activities[0].timestamp}}</td> 
+                                        <td>{{logDetailById.user_activities[0].date}}</td> 
+                                        <td>{{logDetailById.user_activities[0].time}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -42,13 +44,15 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">URL ID:</th>
-                                        <th scope="col">Creation Time:</th>
+                                        <th scope="col">Date:</th>
+                                        <th scope="col">Time:</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let urlById of urlsById">
                                         <td><a routerLink="/shorturl/short-url-list/url-access-list/{{urlById._id}}">{{urlById._id}}</a></td>
-                                        <td>{{urlById.createdAt}}</td>
+                                        <td>{{urlById.date}}</td>
+                                        <td>{{urlById.time}}</td>
                                     </tr>
                                 </tbody>
                             </table>

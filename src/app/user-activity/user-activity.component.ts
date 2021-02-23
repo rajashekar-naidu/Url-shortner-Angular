@@ -68,10 +68,10 @@ export class UserActivityComponent implements OnInit {
   getAllUrlDetails(){
     this._auth.getAllUrls()
     .subscribe(
-      data => {
-        console.log(data.results);        
+      data => {        
         this.urls = data.results || [];
         this.urlsById = data.results.filter(e => e.user_id === this.uId);
+        console.log(this.urlsById);
       },
       error => {
         console.log(error);
