@@ -1,50 +1,74 @@
 <div class="card-wrapper row ">
-    <div class="card col-5 m-3 p-3" style="background-color: #525f7f; color: white; font-size: larger; ">
-        <div class="row mt-3 pl-3"><h4 class="col-8">Total Users</h4><h3 class="col-3" style= "text-align:right;">{{totalUserRegistered}}</h3> </div>
+    <div class="card col-5 m-3 p-3" style="background-color: white; color: #2e323a; font-size: larger; ">
+        <div class="row mt-3 pl-3"><h5 class="col-8">Total Users</h5><h4 class="col-3" style= "text-align:right;">{{totalUserRegistered}}</h4> </div>
     </div>
-    <div class="card col-5 m-3 p-3" style="background-color: #5603ad; color: white; font-size: larger;">
-        <div class="row mt-3 pl-3"><h4 class="col-8">Users Registered today</h4><h3 class="col-3" style= "text-align:right;">{{totalUserRegisteredIn24Hr}}</h3> </div>
+    <div class="card col-5 m-3 p-3" style="background-color: white; color: #2e323a; font-size: larger;">
+        <div class="row mt-3 pl-3"><h5 class="col-8">Users Registered today</h5><h4 class="col-3" style= "text-align:right;">{{totalUserRegisteredIn24Hr}}</h4> </div>
         
     </div>
-    <div class="card col-5 m-3 p-3" style="background-color: #2dce89; color: white; font-size: larger;">
-        <div class="row mt-3 pl-3"><h4 class="col-8">Short URLs Generated</h4><h3 class="col-3" style= "text-align:right;">{{totalUrlRegistered}}</h3> </div>
+    <div class="card col-5 m-3 p-3" style="background-color: white; color: #2e323a; font-size: larger;">
+        <div class="row mt-3 pl-3"><h5 class="col-8">Short URLs Generated</h5><h4 class="col-3" style= "text-align:right;">{{totalUrlRegistered}}</h4> </div>
     </div>
-    <div class="card col-5 m-3 p-3" style="background-color: #fb6340; color: white; font-size: larger;">
-        <div class="row mt-3 pl-3"><h4 class="col-8">Short URLs Generated today</h4><h3 class="col-3" style= "text-align:right;">{{totalUrlRegisteredIn24Hr}}</h3> </div>
+    <div class="card col-5 m-3 p-3" style="background-color: white; color: #2e323a; font-size: larger;">
+        <div class="row mt-3 pl-3"><h5 class="col-8">Short URLs Generated today</h5><h4 class="col-3" style= "text-align:right;">{{totalUrlRegisteredIn24Hr}}</h4> </div>
     </div>
 </div>
 
 
-<div class="card p-2 mt-5">
+<div class="card p-2 mt-1">
 <table class="table table-hover m-1">
     <thead class="thead-dark">
       <tr>
        <!--  <th scope="col" style="text-align: center;">#</th>-->
-        <th scope="col" style="text-align: center;">User Activities</th>
+        <th scope="col" style="text-align: left;">User ID</th>
+        <th scope="col" style="text-align: left;">Action</th>
+        <th scope="col" style="text-align: left;">Date</th>
+        <th scope="col" style="text-align: left;">Time</th>
       </tr>
     </thead>
     <tbody class="p-2">
       <tr *ngFor="let UserActivityDashboard of UsersActivityDashboard">
        <!-- <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">{{i}}</td> -->
         <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
-          User ID: <a routerLink="/user-accounts/user-activity/{{UserActivityDashboard.UserID}}"><strong>{{UserActivityDashboard.UserID}}</strong></a> has Successfully <strong>{{UserActivityDashboard.user_activities[0].Action}}</strong> on <strong>{{UserActivityDashboard.user_activities[0].date}}</strong> at <strong>{{UserActivityDashboard.user_activities[0].time}}</strong>.
+          <a routerLink="/user-accounts/user-activity/{{UserActivityDashboard.UserID}}"><strong>{{UserActivityDashboard.UserID}}.</strong></a>
+        </td>
+        <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+          <strong>{{UserActivityDashboard.user_activities[0].Action}}</strong>
+        </td>
+        <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+          <strong>{{UserActivityDashboard.user_activities[0].date}}</strong>
+        </td>
+        <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+          <strong>{{UserActivityDashboard.user_activities[0].time}}</strong>
         </td>
       </tr> 
     </tbody>
   </table>
 </div>
 
-<div class="card p-2 mt-5">
+<div class="card p-2 mt-1">
     <table class="table table-hover m-1">
         <thead class="thead-dark">
           <tr>
-            <th scope="col" style="text-align: center;">Short Url activities</th>
+            <th scope="col" style="text-align: left;">Short Url ID</th>
+            <th scope="col" style="text-align: left;">User ID</th>
+            <th scope="col" style="text-align: left;">Date</th>
+            <th scope="col" style="text-align: left;">Time</th>
           </tr>
         </thead>
         <tbody class="p-2">
           <tr *ngFor="let urlActivityDashboard of urlsActivityDashboard">
             <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
-              Short URL <a routerLink="/shorturl/short-url-list/url-access-list/{{urlActivityDashboard._id}}"><strong>{{urlActivityDashboard.shortUrl}}</strong></a> is Generated by UserID <a routerLink="/user-accounts/user-activity/{{urlActivityDashboard.user_id}}"><strong>{{urlActivityDashboard.user_id}}</strong></a> on <strong>{{urlActivityDashboard.date}}</strong> at <strong>{{urlActivityDashboard.time}}</strong>.
+              <a routerLink="/shorturl/short-url-list/url-access-list/{{urlActivityDashboard._id}}"><strong>{{urlActivityDashboard.shortUrl}}</strong></a>            
+            </td>
+            <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+              <a routerLink="/user-accounts/user-activity/{{urlActivityDashboard.user_id}}"><strong>{{urlActivityDashboard.user_id}}</strong></a>
+            </td>
+            <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+              <strong>{{urlActivityDashboard.date}}</strong>
+            </td>
+            <td style="border: 1px solid #d3d3d3;padding: 10px;margin: 10px;" class="col-xs-12">
+              <strong>{{urlActivityDashboard.time}}</strong>
             </td>
           </tr> 
         </tbody>

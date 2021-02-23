@@ -75,5 +75,4 @@ closeAlert(){
 closeServerAlert(){
   this.serverError=false;
 }
-
 }

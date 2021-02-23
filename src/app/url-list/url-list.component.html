@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4"> 
-    <h4>Short URL List: {{length}}</h4>
+    <h4>Total URLs : {{length}}</h4>
 </div>
 
 <div *ngIf="urlRemoved" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,7 +23,7 @@
     </button>
 </div>
 
-<div class="card p-3 m-3  text-white" *ngFor="let url of urls" style="font-weight: 500; background-color:slateblue;">
+<div class="card p-3 m-3  text-white" *ngFor="let url of urls" style="font-weight: 500; background-color:white;">
     <div class="col">
         <input type="url" class="form-control mb-2 col-12" name="longUrl" value="{{url.longUrl}}" [readonly]="isReadonly">
         <div class="row">

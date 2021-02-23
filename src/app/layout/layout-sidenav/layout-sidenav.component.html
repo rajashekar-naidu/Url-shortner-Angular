@@ -3,10 +3,10 @@
   <!-- Inner -->
   <div class="sidenav-inner" [ngClass]="{ 'py-1': orientation !== 'horizontal' }">
 
-    <sidenav-router-link icon="ion ion-ios-contact" *ngIf="role" route="/dashboard" [active]="isActive('/dashboard')">Dashboard</sidenav-router-link>
-    <sidenav-router-link icon="ion ion-md-desktop" route="/shorturl" [active]="isActive('/shorturl')">ShortUrl</sidenav-router-link>
-    <sidenav-router-link icon="ion ion-md-desktop" *ngIf="role" route="/shorturl/short-url-list" [active]="isActive('shorturl/short-url-list')">Short Url List</sidenav-router-link>
-    <sidenav-router-link icon="ion ion-md-desktop" *ngIf="role" route="/user-accounts" [active]="isActive('/user-accounts')">User Accounts</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-md-home" *ngIf="role" route="/dashboard" [active]="isActive('/dashboard')">Dashboard</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-md-link" route="/shorturl" [active]="isActive('/shorturl')">ShortUrl</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-md-list" *ngIf="role" route="/shorturl/short-url-list" [active]="isActive('shorturl/short-url-list')">Short Url List</sidenav-router-link>
+    <sidenav-router-link icon="ion ion-ios-people" *ngIf="role" route="/user-accounts" [active]="isActive('/user-accounts')">User Accounts</sidenav-router-link>
    <!-- <sidenav-router-link icon="ion ion-md-desktop" route="/user-accounts/user-activity/{{uid}}" active="isActive(/user-accounts/user-activity/{{uid}})" >User Activity</sidenav-router-link>  -->
   </div>
 </sidenav>

@@ -44,6 +44,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AuthGuard } from './_helpers/auth-guard.service';
 import { TokenExpiredComponent } from './token-expired/token-expired.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 // *******************************************************************************
 //
@@ -66,6 +67,7 @@ import { TokenExpiredComponent } from './token-expired/token-expired.component';
     DashboardComponent,
     ChangePasswordComponent,
     TokenExpiredComponent,
+    UserProfileComponent,
     
   ],
 

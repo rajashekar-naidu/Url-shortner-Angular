@@ -55,19 +55,19 @@ const routes: Routes = [
     { path: '', component: SignupComponent },
   ]},
 
-  { path: 'shorturl/short-url-list/url-access-list/:urlId', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'shorturl/short-url-list/url-access-list/:urlId', component: Layout2Component, children: [
     { path: '', component: UrlAccessListComponent },
   ]},
 
-  { path: 'user-accounts/edit-profile/:id', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'user-accounts/edit-profile/:id', component: Layout2Component, children: [
     { path: '', component: ProfileComponent },
   ]},
 
-  { path: 'user-accounts/user-activity/:id', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'user-accounts/user-activity/:id', component: Layout2Component, children: [
     { path: '', component: UserActivityComponent },
   ]},
 
-  { path: 'user-accounts/edit-profile/change-password/:id', component: LayoutWithoutSidenavComponent, children: [
+  { path: 'user-accounts/edit-profile/change-password/:id', component: Layout2Component, children: [
     { path: '', component: ChangePasswordComponent },
   ]},
 
