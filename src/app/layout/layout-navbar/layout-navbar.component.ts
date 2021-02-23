@@ -63,6 +63,7 @@ export class LayoutNavbarComponent implements OnInit {
       });  
     localStorage.removeItem('token');
     localStorage.removeItem('uId');
+    localStorage.removeItem('role');
     this._router.navigate(['/login']);
   }
 

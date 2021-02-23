@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../app.service';
 import { AuthService } from '../_services/auth.service';
 
 
@@ -27,10 +28,14 @@ export class ProfileComponent implements OnInit {
     email:  new FormControl('', [Validators.required, Validators.email])
   });
 
-  constructor(private _auth:AuthService, private _formBuilder:FormBuilder, private activatedRoute: ActivatedRoute  ) { }
+  constructor(private _appService:AppService, private _auth:AuthService, private _formBuilder:FormBuilder, private activatedRoute: ActivatedRoute, private _router:Router ) { 
+    this._appService.pageTitle = 'Profile';
+  }
   
 
-  ngOnInit() {    
+  ngOnInit() {
+    if(this._auth.getRole()===false)
+      this._router.navigate(['/']);
     this.uId = this.activatedRoute.snapshot.paramMap.get('id'); //or params['id'] insted of paramMap.get('id')
     console.log(this.uId);
       this.getUserDetailsBasedOnId(this.uId); 

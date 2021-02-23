@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 import { AuthService } from '../_services/auth.service';
 
 
@@ -15,9 +16,15 @@ export class UserAccountsComponent implements OnInit {
   length;
 
 
-  constructor(private _router:Router, private _auth:AuthService) { }
+  constructor( private _appService:AppService, private _router:Router, private _auth:AuthService) { 
+    this._appService.pageTitle = 'User Accounts';
+  }
 
   ngOnInit() {
+    if(this._auth.getRole()==="User")
+    this._router.navigate(['/shorturl']);
+  if(this._auth.getRole()===false)
+    this._router.navigate(['/']);
     this.getAllUserDetails();
   }
 

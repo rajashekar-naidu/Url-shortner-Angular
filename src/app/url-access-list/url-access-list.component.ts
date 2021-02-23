@@ -26,6 +26,8 @@ export class UrlAccessListComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this._auth.getRole()===false)
+      this._router.navigate(['/']);
     this.urlId = this.activatedRoute.snapshot.paramMap.get('urlId'); //or params['id'] insted of paramMap.get('id')
     console.log(this.urlId);
     this.getUrlTrackerDetailsbyId(this.urlId);

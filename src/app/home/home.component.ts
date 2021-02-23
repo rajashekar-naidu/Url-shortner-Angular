@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { AuthService } from '../_services/auth.service';
 
@@ -8,7 +9,7 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  urlPattern='(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+  urlPattern='(https?:\/\/)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*\/?';
   urlForm:FormGroup;
   allowAuthentication=true;
   emptyForm:boolean;
@@ -16,11 +17,13 @@ export class HomeComponent implements OnInit {
   duplicateUrl:boolean;
   // passwordFieldEmpty:boolean;
 
-  constructor(private appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService) {
+  constructor(private appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService, private _router:Router) {
     this.appService.pageTitle = 'URL Shortner';
   }
 
   ngOnInit() {
+    if(this._auth.getRole()===false)
+      this._router.navigate(['/']);
     this.urlForm = this._formBuilder.group({
       longUrl : ['', [Validators.required, Validators.pattern(this.urlPattern)]],
       password : [''],
@@ -37,14 +40,21 @@ export class HomeComponent implements OnInit {
 
   onSubmit(){
     console.log(this.urlForm.value);
+   // console.log(this.allowAuthentication);
    if((this.allowAuthentication === true && this.urlForm.get('password').value ==="") || (this.allowAuthentication === true && this.urlForm.get('password').value===null)) {
       this.emptyForm = true;
-   }
-    if (this.urlForm.invalid) {
-      this.emptyForm=true;
-      this.urlForm.reset({});
+      this.ngOnInit();
+    // this.urlForm.reset({});
       return;
-    }
+   }
+
+   if((this.allowAuthentication === true && this.urlForm.get('longUrl').value ==="") || (this.allowAuthentication === true && this.urlForm.get('longUrl').value===null)) {
+    this.emptyForm = true;
+    this.ngOnInit();
+   // this.urlForm.reset({});
+    return;
+ }
+    
     console.log(this.urlForm.value);  
       this._auth.sendLongUrl(this.urlForm.value)
       .subscribe(

@@ -27,11 +27,12 @@ export class LoginComponent implements OnInit{
 
 
   get formControls() { return this.loginForm.controls; }
+
   
   onLogin() {
     if (this.loginForm.invalid) {
       this.emptyForm=true;
-      this.loginForm.reset({});
+     // this.loginForm.reset({});
       return;
     }
     console.log(this.loginForm.value);
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit{
         console.log(res);
        localStorage.setItem('token', res.data.token);
        localStorage.setItem('uId', res.data.userId);
+       localStorage.setItem('role',res.data.role);
         this._router.navigate(['/dashboard'])
       },
       err => {
@@ -48,12 +50,12 @@ export class LoginComponent implements OnInit{
         console.log(err);
         if(err.error.message ==="Email incorrect"){
           this.wrongCredentials=true;
-          this.loginForm.reset({});
+        //  this.loginForm.reset({});
         }
 
         if(err.error.message ==="Password incorrect"){
           this.wrongCredentials=true;
-          this.loginForm.reset({});
+        //  this.loginForm.reset({});
         }
         
        if(err.message === "Http failure response for http://192.168.1.41:5000/user/login: 0 Unknown Error")

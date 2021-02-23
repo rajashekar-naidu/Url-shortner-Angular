@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { ConfirmedValidator } from '../_helpers/confirmed.validator';
 import { AuthService } from '../_services/auth.service';
@@ -20,13 +20,15 @@ export class ChangePasswordComponent implements OnInit {
   serverError:boolean;
   sucessfulChange:boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private _appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService) { 
+  constructor(private activatedRoute: ActivatedRoute, private _appService: AppService, private _formBuilder:FormBuilder, private _auth:AuthService, private _router:Router) { 
     this._appService.pageTitle = 'Change Password';
   }
 
   ngOnInit() {
     this.uId = this.activatedRoute.snapshot.paramMap.get('id'); //or params['id'] insted of paramMap.get('id')
     console.log(this.uId);
+  if(this._auth.getRole()===false)
+    this._router.navigate(['/']);
     this.passwordForm = this._formBuilder.group({
       Password : ['', [Validators.required, Validators.pattern(this.passPattern)]],
       newPassword : ['', [Validators.required, Validators.pattern(this.passPattern)]],

@@ -42,6 +42,8 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
 import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthGuard } from './_helpers/auth-guard.service';
+import { TokenExpiredComponent } from './token-expired/token-expired.component';
 
 // *******************************************************************************
 //
@@ -63,6 +65,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     UserActivityComponent,
     DashboardComponent,
     ChangePasswordComponent,
+    TokenExpiredComponent,
     
   ],
 
@@ -83,8 +86,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     LayoutModule
   ],
 
-  providers: [Title,AppService,AuthService,
-  //  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  providers: [Title,AppService,AuthService, AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
 
   bootstrap: [AppComponent],

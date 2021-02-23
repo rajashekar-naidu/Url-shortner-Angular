@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, HostBinding } from '@angular/core';
+import { Component, Input, AfterViewInit, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AppService } from '../../app.service';
@@ -9,7 +9,7 @@ import { LayoutService } from '../layout.service';
   templateUrl: './layout-sidenav.component.html',
   styles: [':host { display: block; }']
 })
-export class LayoutSidenavComponent implements AfterViewInit {
+export class LayoutSidenavComponent implements AfterViewInit, OnInit{
   @Input() orientation = 'vertical';
 
   @HostBinding('class.layout-sidenav') hostClassVertical = false;
@@ -22,7 +22,17 @@ export class LayoutSidenavComponent implements AfterViewInit {
     this.hostClassHorizontal = !this.hostClassVertical;
     this.hostClassFlex = this.hostClassHorizontal;
   }
-  uid = this._auth.getuId();
+  role;
+
+  ngOnInit(){
+   this.getRole();
+  }
+  getRole(){
+    console.log(this._auth.getRole());
+  this.role = this._auth.getRole();
+  console.log(this.role);
+  
+  }
 
   ngAfterViewInit() {
     // Safari bugfix

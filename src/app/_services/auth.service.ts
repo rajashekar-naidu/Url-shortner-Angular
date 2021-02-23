@@ -11,6 +11,7 @@ export class AuthService {
   //user apis
   private _registerUrl = this.baseUrl+"/user/register";//post
   private _loginUrl = this.baseUrl+"/user/login";//post
+  private _googleAuth = this.baseUrl+"/user/google"//get 
   private _allUsers = this.baseUrl+"/user/all-user/list";//get
   private _userDetailsByID = this.baseUrl+"/user/user-by-id";//get  /:userId
   private _updateUserByID = this.baseUrl+"/user/user-update";//put  // /:userId
@@ -40,6 +41,24 @@ export class AuthService {
   loginUser(user) {
     console.log(user);
     return this.http.post<any>(this._loginUrl, user)
+  }
+
+  googleOAth(){
+    return this.http.get<any>(this._googleAuth, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+      }
+      );
+  }
+
+  getDashboard(){
+    return this.http.get<any>(this._dashboard, {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      })
+    });
   }
 
   getAllUsers() {
@@ -111,25 +130,25 @@ export class AuthService {
     });
   }
 
-  getToken() { //check if this is needed
-    return localStorage.getItem('token')
+  isAuthenticated(){
+    return localStorage.getItem('token') 
   }
 
-
-  loggedIn() { //check if this is being used
-    return !!localStorage.getItem('token')    
+  getToken() { //check if this is needed
+    return   localStorage.getItem('token')
   }
   
   getuId(){ //check if this is needed
     return localStorage.getItem('uId');
   }
 
-  storeUserId(){
-
-  }
-
-  storeUrlId(){
-    return sessionStorage.getItem('urlID');
+  getRole(){ //check if this is needed
+    if(localStorage.getItem('role') === "Admin")
+      return "Admin";
+    if(localStorage.getItem('role') === "User")
+      return "User";
+    else
+    return false;
   }
 
   sendLongUrl(longUrl){ 

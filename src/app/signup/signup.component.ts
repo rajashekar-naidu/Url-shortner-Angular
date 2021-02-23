@@ -21,6 +21,10 @@ export class SignupComponent implements OnInit {
    }
    roles: any = ['Admin', 'User'];
   ngOnInit() {
+    if(this._auth.getRole()==="User")
+      this._router.navigate(['/shorturl']);
+    if(this._auth.getRole()===false)
+      this._router.navigate(['/']);
     this.signupForm = this._formBuilder.group({
       fName:['',Validators.required],
       lName:['',Validators.required],

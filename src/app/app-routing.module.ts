@@ -22,14 +22,18 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthGuard } from './_helpers/auth-guard.service';
+import { TokenExpiredComponent } from './token-expired/token-expired.component';
+
 
 
 // *******************************************************************************
 // Routes
 
 const routes: Routes = [
-  {path:'login', component:LoginComponent},
+  {path:'login', canActivate:[AuthGuard], component:LoginComponent},
   {path:'confirm-page', component:ConfirmPageComponent},
+  {path:'token-expired-page', component:TokenExpiredComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   
   { path: 'dashboard', component: Layout2Component, children: [

@@ -17,7 +17,7 @@
 <div class="card p-4 m-2">
     <span class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
         <h4>URL Creation Details</h4>
-        <button class="btn btn-primary" (click)="return()">Back</button>
+        <button class="btn btn-primary" (click)="return()">Back to Short Url List</button>
     </span>
 
     <input class="url mb-4" type="url" [value]="longUrl" readonly>
@@ -28,14 +28,14 @@
             <tr>
                 <th scope="col">Created by:</th>
                 <th scope="col">Created on:</th>
-                <th scope="col">Total clicks</th>
+            <!--     <th scope="col">Total clicks</th> -->
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td><a routerLink="/user-accounts/edit-profile/{{user_id}}">{{user_id}}</a></td>
                 <td>{{createdAt}}</td>
-                <td>{{clicks}}</td>
+           <!--     <td>{{clicks}}</td> -->
             </tr>
             </tbody>
         </table>
@@ -52,14 +52,14 @@
         <tr>
             <th scope="col">IP Address</th>
             <th scope="col">User Agent</th>
-            <th scope="col">Clicks</th> <!-- Should be clicks ....not time stamp -->
+          <th scope="col">Clicks</th>  <!--  Should be clicks ....not time stamp -->
         </tr>
         </thead>
         <tbody *ngFor="let urlTrackerDetail of urlTrackerDetails let i = index;">
         <tr>
             <td>{{urlTrackerDetail.ip_address}}</td>
             <td>{{urlTrackerDetail.user_agent}}</td>
-            <td></td> <!--{{urlTrackerDetail.timestamp}}-->
+            <td>{{urlTrackerDetail.totalClick}}</td> <!--{{urlTrackerDetail.timestamp}}-->
         </tr>
         </tbody>
     </table>

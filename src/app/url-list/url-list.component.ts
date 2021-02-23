@@ -17,10 +17,14 @@ export class UrlListComponent implements OnInit{
   cantFetchUrls:boolean;
 
   constructor(private appService: AppService, private _router:Router, private _auth:AuthService) {
-    this.appService.pageTitle = 'URL List';
+    this.appService.pageTitle = 'Short URL List';
   }
 
   ngOnInit(){
+    if(this._auth.getRole()==="User")
+    this._router.navigate(['/shorturl']);
+  if(this._auth.getRole()===false)
+    this._router.navigate(['/']);
     this.getAllUrlDetails();
   }
 
