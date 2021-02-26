@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
   //private baseUrl="http://localhost:5000";
-  private baseUrl="http://192.168.1.60:5000";
-  //user apis
+  private baseUrl="http://192.168.1.90:5000";
+  //user apiss
   private _registerUrl = this.baseUrl+"/user/register";//post
   private _loginUrl = this.baseUrl+"/user/login";//post
   private _googleAuth = this.baseUrl+"/user/google"//get 

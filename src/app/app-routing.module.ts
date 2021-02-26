@@ -6,7 +6,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 // Layouts
 
 import { Layout2Component } from './layout/layout-2/layout-2.component';
-import { LayoutWithoutSidenavComponent } from './layout/layout-without-sidenav/layout-without-sidenav.component';
+//import { LayoutWithoutSidenavComponent } from './layout/layout-without-sidenav/layout-without-sidenav.component';
 
 // *******************************************************************************
 // Pages
