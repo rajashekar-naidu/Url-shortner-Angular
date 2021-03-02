@@ -16,9 +16,9 @@ export class ConfirmPageComponent implements OnInit {
 
   ngOnInit(){
     if(this._auth.getRole()==="User")
-    this._router.navigate(['/shorturl']);
-  if(this._auth.getRole()===false)
-    this._router.navigate(['/']);
+      this._router.navigate(['/shorturl']);
+    if(this._auth.getRole()===false)
+      this._router.navigate(['/']);
   }
 
   submit(){

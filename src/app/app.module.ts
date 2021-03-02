@@ -12,8 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-/* Angular Flex Layout */
-import { FlexLayoutModule } from '@angular/flex-layout';
+  /* Angular Flex Layout */
+  import { FlexLayoutModule } from '@angular/flex-layout';
 
 // *******************************************************************************
 // App
